@@ -37,6 +37,16 @@ class UserSeeder extends Seeder
             'password' => '3042311060'
         ]);
 
+        $rector = User::updateOrCreate([
+            'employee_id_number' => '3041911001',
+        ],[
+            'login' => '3041911001',
+            'fullname' => 'XAMIDOV OBIDJON XAFIZOVICH',
+            'password' => '3041911001'
+        ]);
+
+        $rector->assignRole('rector');
+
         $teacher->assignRole('teacher','admin', 'rector');
     }
 }
