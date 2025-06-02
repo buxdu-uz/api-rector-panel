@@ -54,7 +54,7 @@ class HemisController extends Controller
 
             $resourceOwner = $provider->getResourceOwner($accessToken);
             $user = $resourceOwner->toArray();
-//            Log::info("user: handlecallback",$user);
+            Log::info("user: handlecallback",$user);
 //            User::updateOrCreate([
 //                'employee_id_number' => $user['employee_id_number'],
 //            ],[
@@ -71,7 +71,7 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
-            return redirect()->away("https://buxdu.uz/rektorpanel/auth/hemis?state=".$request->get('state'));
+            return redirect()->away("https://buxdu.uz/rektorpanel/rektorpanel/auth/hemis?state=".$request->get('state'));
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -79,8 +79,8 @@ class HemisController extends Controller
 
     public function checkHemisAuth(Request $request)
     {
+        Log::info("state", $request->all());
         $sessionState = SessionState::query()->latest()->first();
-
         $request->validate([
             'state' => 'required'
         ]);
