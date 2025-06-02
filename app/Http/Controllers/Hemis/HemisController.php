@@ -111,6 +111,10 @@ class HemisController extends Controller
                     ]);
 
                 }
+            }else{
+                return response()->json([
+                    'message' => 'Sizning kirishingizga ruxsat mavjud emas!',
+                ], 403);
             }
         }
 
