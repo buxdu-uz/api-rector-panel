@@ -71,7 +71,7 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
-            return redirect()->away("https://buxdu.uz/rektorpanel/rektorpanel/auth/hemis?state=".$request->get('state'));
+            return redirect()->away("https://buxdu.uz/rektorpanel/auth/hemis?state=".$request->get('state'));
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
