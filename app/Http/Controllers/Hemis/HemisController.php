@@ -54,7 +54,7 @@ class HemisController extends Controller
 
             $resourceOwner = $provider->getResourceOwner($accessToken);
             $user = $resourceOwner->toArray();
-            Log::info("user: handlecallback",$user);
+//            Log::info("user: handlecallback",$user);
 //            User::updateOrCreate([
 //                'employee_id_number' => $user['employee_id_number'],
 //            ],[
@@ -88,10 +88,10 @@ class HemisController extends Controller
         if ($sessionState->state === $request->state) {
             $employee_id = $sessionState->employee_id_number;
 //            Log::info("enmployeeid",$employee_id);
-            if ($employee_id == 3041911001 || $employee_id == 3042311060) {
+            if ($employee_id == 3041911001 || $employee_id == 3042311060 || $employee_id == 3042011168 || $employee_id == 3041411007) {
                 // Find the user in DB (optional if full object already in session)
                 $authUser = User::query()
-                    ->whereIn('employee_id_number', [3041911001,3042311060])
+                    ->whereIn('employee_id_number', [3041911001,3042311060,3042011168,3041411007])
                     ->first();
 
 //                Log::info("auth user",$authUser);
