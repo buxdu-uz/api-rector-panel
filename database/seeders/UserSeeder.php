@@ -61,9 +61,18 @@ class UserSeeder extends Seeder
             'password' => '3041411007'
         ]);
 
+        $baxti = User::updateOrCreate([
+            'employee_id_number' => '3040811007',
+        ],[
+            'login' => '3040811007',
+            'fullname' => 'ADIZOV BAXTIYOR ISMATOVICH',
+            'password' => '3040811007'
+        ]);
+
         $shef->assignRole('teacher','admin', 'rector');
-        $hamza->assignRole('admin');
-        $rector->assignRole('rector');
         $teacher->assignRole('teacher','admin', 'rector');
+        $hamza->assignRole('admin');
+        $baxti->assignRole('admin');
+        $rector->assignRole('rector');
     }
 }

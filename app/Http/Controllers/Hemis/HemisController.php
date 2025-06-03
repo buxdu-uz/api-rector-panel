@@ -71,7 +71,8 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
-            return redirect()->away("https://buxdu.uz/rektorpanel/auth/hemis?state=".$request->get('state'));
+            Log::info("path", array(config('hemis.front_url') . "/auth/hemis?state=" . $request->get('state')));
+            return redirect()->away(config('hemis.front_url') . "/auth/hemis?state=" . $request->get('state'));
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -88,10 +89,11 @@ class HemisController extends Controller
         if ($sessionState->state === $request->state) {
             $employee_id = $sessionState->employee_id_number;
 //            Log::info("enmployeeid",$employee_id);
-            if ($employee_id == 3041911001 || $employee_id == 3042311060 || $employee_id == 3042011168 || $employee_id == 3041411007) {
+//            if ($employee_id == 3041911001 || $employee_id == 3042311060 || $employee_id == 3042011168 || $employee_id == 3041411007) {
                 // Find the user in DB (optional if full object already in session)
                 $authUser = User::query()
-                    ->whereIn('employee_id_number', [3041911001,3042311060,3042011168,3041411007])
+//                    ->whereIn('employee_id_number', [3041911001,3042311060,3042011168,3041411007])
+                    ->where('employee_id_number', $employee_id)
                     ->first();
 
 //                Log::info("auth user",$authUser);
@@ -111,11 +113,11 @@ class HemisController extends Controller
                     ]);
 
                 }
-            }else{
-                return response()->json([
-                    'message' => 'Sizning kirishingizga ruxsat mavjud emas!',
-                ], 403);
-            }
+//            }else{
+//                return response()->json([
+//                    'message' => 'Sizning kirishingizga ruxsat mavjud emas!',
+//                ], 403);
+//            }
         }
 
         return response()->json([

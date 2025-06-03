@@ -19,4 +19,5 @@ return [
         'token_url' => 'https://hemis.buxdu.uz/oauth/access-token',
         'resource_url' => 'https://hemis.buxdu.uz/oauth/api/user?fields=id,uuid,type,name,login,picture,email,university_id,phone',
     ],
+    "front_url" => env('FRONT_URL', ''),
 ];
