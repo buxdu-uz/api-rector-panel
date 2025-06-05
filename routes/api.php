@@ -27,10 +27,10 @@ Route::post('login/hemis',[HemisController::class,'checkHemisAuth'])->middleware
 Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('faculties', [FacultyController::class,'getAll']);
     Route::post('logout', [HemisController::class, 'logout']);
+    Route::get('faculty_debts',[FacultyDebtController::class,'paginate']);
 
 
     Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function (){
-        Route::get('faculty_debts',[FacultyDebtController::class,'paginate']);
         Route::post('faculty_debts',[FacultyDebtController::class,'store']);
         Route::put('faculty_debts/{faculty_debt}',[FacultyDebtController::class,'update']);
     });
