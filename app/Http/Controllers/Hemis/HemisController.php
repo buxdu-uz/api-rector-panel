@@ -15,6 +15,26 @@ use League\OAuth2\Client\Provider\GenericProvider;
 
 class HemisController extends Controller
 {
+    public function login(Request $request)
+    {
+        $request->validate([
+            'login' => 'required|exists:users,login',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(['login' => $request->login, 'password' => $request->password])) {
+            $user = User::where('login', $request->login)->first();
+
+            $token = $user->createToken('token-name', [$user->login])->plainTextToken;
+            return $this->successResponse([
+                'token' => $token
+            ], new UserResource($user));
+        }
+        return $this->errorResponse('Login or password error', 404);
+    }
+
+
+
     //oAuth2
     protected function getProvider(): GenericProvider
     {
