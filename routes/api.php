@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Faculties\FacultyController;
 use App\Http\Controllers\Faculties\FacultyDebtController;
 use App\Http\Controllers\Hemis\HemisController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
         Route::post('faculty_debts',[FacultyDebtController::class,'store']);
         Route::put('faculty_debts/{faculty_debt}',[FacultyDebtController::class,'update']);
         Route::post('users',[UserController::class,'store']);
+        Route::apiResource('categories',CategoryController::class);
     });
 
 });
