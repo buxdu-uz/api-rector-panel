@@ -21,7 +21,7 @@ class InfoResource extends JsonResource
             'name' => $this->name,
             'url' => $this->url,
             'is_active' => $this->is_active,
-            'category' => new CategoryResource($this->whenLoaded('category')),
+//            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

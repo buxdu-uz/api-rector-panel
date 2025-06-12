@@ -26,9 +26,14 @@ class InfoController extends Controller
 
     public function index()
     {
-        $categoryId = request()->query('category_id');
         $is_active = request()->query('is_active');
-        return $this->successResponse('', InfoResource::collection($this->infos->findCategoryId($categoryId,$is_active)));
+        $grouped = $this->infos->findCategoryId($is_active);
+        return $grouped->map(function ($infos, $categoryName) {
+            return [
+                'category' => $categoryName,
+                'infos' => InfoResource::collection($infos),
+            ];
+        })->values();
     }
 
     public function store(StoreInfoRequest $request, StoreInfoAction $action)

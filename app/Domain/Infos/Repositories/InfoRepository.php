@@ -6,11 +6,13 @@ use App\Domain\Infos\Models\Info;
 
 class InfoRepository
 {
-    public function findCategoryId($category_id,$is_active)
+    public function findCategoryId($is_active)
     {
         return Info::query()
-            ->where('is_active', $is_active)
-            ->where('category_id', $category_id)
-            ->get();
+            ->when($is_active, function ($query) use ($is_active) {
+                return $query->where('is_active', $is_active);
+            })
+            ->get()
+            ->groupBy('category.name');
     }
 }
