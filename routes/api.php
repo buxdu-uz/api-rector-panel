@@ -4,6 +4,7 @@ use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Faculties\FacultyController;
 use App\Http\Controllers\Faculties\FacultyDebtController;
 use App\Http\Controllers\Hemis\HemisController;
+use App\Http\Controllers\Infos\InfoController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,12 +33,15 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('logout', [HemisController::class, 'logout']);
     Route::get('faculty_debts',[FacultyDebtController::class,'paginate']);
 
+    Route::get('infos',[InfoController::class,'index']);
 
     Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function (){
         Route::post('faculty_debts',[FacultyDebtController::class,'store']);
         Route::put('faculty_debts/{faculty_debt}',[FacultyDebtController::class,'update']);
         Route::post('users',[UserController::class,'store']);
         Route::apiResource('categories',CategoryController::class);
+        Route::post('infos',[InfoController::class,'store']);
+        Route::put('infos/{info}',[InfoController::class,'update']);
     });
 
 });

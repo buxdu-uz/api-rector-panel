@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Categories;
 
 use App\Domain\Categories\Actions\StoreCategoryAction;
+use App\Domain\Categories\Actions\UpdateCategoryAction;
 use App\Domain\Categories\DTO\StoreCategoryDTO;
+use App\Domain\Categories\DTO\UpdateCategoryDTO;
 use App\Domain\Categories\Models\Category;
 use App\Domain\Categories\Repositories\CategoryRepository;
 use App\Domain\Categories\Requests\StoreCategoryRequest;
+use App\Domain\Categories\Requests\UpdateCategoryRequest;
 use App\Domain\Categories\Resources\CategoryResource;
 use App\Http\Controllers\Controller;
 use Exception;
@@ -66,9 +69,16 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $request,Category $category, UpdateCategoryAction $action)
     {
-        //
+        try {
+            $dto = UpdateCategoryDTO::fromArray(array_merge($request->validated(),['category' => $category]));
+            $response = $action->execute($dto);
+
+            return $this->successResponse('updated',new CategoryResource($response));
+        }catch (Exception $exception){
+            return $this->errorResponse($exception->getMessage());
+        }
     }
 
     /**
